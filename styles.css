@@ -45,6 +45,75 @@ body {
     max-height: 100%;
 }
 
+/* Music Control Button - Small Round */
+.music-control-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(233, 30, 99, 0.4);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.music-control-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(233, 30, 99, 0.6);
+}
+
+.music-control-btn:active {
+    transform: scale(0.95);
+}
+
+.music-control-btn.muted {
+    opacity: 0.6;
+    background: rgba(200, 200, 200, 0.9);
+}
+
+.music-control-btn.muted .music-icon {
+    opacity: 0.5;
+}
+
+.music-icon {
+    font-size: 1.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+
+.music-control-btn:hover .music-icon {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.music-text {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .music-control-btn {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .music-icon {
+        font-size: 1.3rem;
+    }
+}
+
 /* Opening Section - Pastel Theme */
 .opening-section {
     background: rgba(255, 255, 255, 0.85);
@@ -54,7 +123,7 @@ body {
     margin: 1.5rem auto;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+    border: 2px solid rgba(233, 30, 99, 0.15);
     text-align: center;
     max-width: 900px;
     width: calc(100% - 2rem);
@@ -400,10 +469,9 @@ body {
     font-weight: 600;
     background: linear-gradient(45deg, #E91E63, #9C27B0);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
     transition: all 0.3s ease;
     font-family: 'Poppins', sans-serif;
     touch-action: manipulation;
@@ -412,8 +480,8 @@ body {
 }
 
 .cta-button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.5);
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .cta-button:active {
@@ -508,7 +576,7 @@ section {
     background: white;
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 10px 40px rgba(216, 27, 96, 0.2);
+    border: 2px solid rgba(233, 30, 99, 0.1);
     animation: slideUp 1s ease;
     width: 100%;
     max-width: 100%;
@@ -642,7 +710,7 @@ section {
     justify-content: center;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+    border: 2px solid rgba(233, 30, 99, 0.2);
     position: relative;
     z-index: 2;
     animation: rotate 3s ease-in-out infinite;
@@ -653,7 +721,7 @@ section {
     background: white;
     padding: 1.5rem;
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+    border: 2px solid rgba(233, 30, 99, 0.1);
     margin: 0 1.5rem;
     transition: all 0.3s ease;
     width: 100%;
@@ -662,8 +730,8 @@ section {
 }
 
 .timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.3);
+    transform: translateY(-3px);
+    border-color: rgba(233, 30, 99, 0.3);
 }
 
 .timeline-content h3 {
@@ -701,10 +769,9 @@ section {
     font-weight: 600;
     background: linear-gradient(45deg, #9C27B0, #BA68C8);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
     transition: all 0.3s ease;
     font-family: 'Poppins', sans-serif;
     margin-bottom: 2rem;
@@ -714,8 +781,8 @@ section {
 }
 
 .reason-reveal-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(156, 39, 176, 0.5);
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .reason-reveal-btn:active {
@@ -733,7 +800,7 @@ section {
     background: white;
     border-radius: 20px;
     padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+    border: 2px solid rgba(233, 30, 99, 0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -785,8 +852,8 @@ section {
 }
 
 .reason-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
+    transform: translateY(-3px);
+    border-color: rgba(233, 30, 99, 0.3);
 }
 
 .reason-number {
@@ -801,7 +868,7 @@ section {
     font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     font-weight: 700;
     margin: 0 auto 1rem;
-    box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .reason-card h3 {
@@ -832,7 +899,7 @@ section {
     border-radius: 20px;
     padding: 1.5rem;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+    border: 2px solid rgba(233, 30, 99, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
@@ -858,8 +925,8 @@ section {
 }
 
 .memory-card:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
+    transform: translateY(-3px);
+    border-color: rgba(233, 30, 99, 0.3);
 }
 
 .memory-icon {
@@ -1200,10 +1267,9 @@ section {
     font-weight: 600;
     background: linear-gradient(45deg, #E91E63, #9C27B0);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
     transition: all 0.3s ease;
     font-family: 'Poppins', sans-serif;
     margin-top: 1rem;
@@ -1233,8 +1299,8 @@ section {
 }
 
 .blow-button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(233, 30, 99, 0.5);
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .blow-button:active {
@@ -1242,20 +1308,36 @@ section {
 }
 
 .wish-message {
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
     margin-top: 1.5rem;
     font-weight: 600;
-    text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+    color: #880E4F;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.9);
     min-height: 2.5rem;
-    animation: fadeInUp 0.8s ease;
-    background: linear-gradient(135deg, #E91E63, #FF1744, #9C27B0, #BA68C8, #CE93D8, #E91E63);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.5px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    border: 2px solid rgba(233, 30, 99, 0.15);
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+    text-align: center;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    animation: fadeInUp 0.8s ease, gradientShift 3s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin-top: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.wish-message.show {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    animation: fadeInUp 0.8s ease;
 }
 
 /* Enhanced Gallery Section - Vertical Layout */
@@ -1263,7 +1345,7 @@ section {
     padding: 2rem 1rem;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 243, 0.95));
     border-radius: 25px;
-    box-shadow: 0 10px 20px rgba(233, 30, 99, 0.15);
+    border: 2px solid rgba(233, 30, 99, 0.15);
     margin: 1.5rem auto;
     width: calc(100% - 2rem);
     max-width: calc(100% - 2rem);
@@ -1283,15 +1365,15 @@ section {
     position: relative;
     overflow: hidden;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(233, 30, 99, 0.15);
+    border: 2px solid rgba(233, 30, 99, 0.15);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     transform: translateY(0);
-    border: 3px solid white;
     width: 100%;
     max-width: 100%;
     animation: galleryFadeIn 0.6s ease forwards;
     opacity: 0;
+    background: white;
 }
 
 .gallery-item:nth-child(1) { animation-delay: 0.1s; }
@@ -1733,9 +1815,11 @@ section {
     }
     
     .wish-message {
-        font-size: 1.1rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
         margin-top: 1rem;
         min-height: 2rem;
+        padding: 0.6rem 0.75rem;
+        line-height: 1.4;
     }
     
     /* Final Section Mobile */
@@ -2028,9 +2112,11 @@ section {
     }
     
     .wish-message {
-        font-size: 1.1rem;
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
         margin-top: 1rem;
         min-height: 2rem;
+        padding: 0.5rem 0.65rem;
+        line-height: 1.4;
     }
     
     /* Gallery Small Mobile */
