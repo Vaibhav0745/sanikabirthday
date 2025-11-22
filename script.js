@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const confetti = [];
-const confettiCount = 15;
+const confettiCount = 2;
 const gravity = 0.2;
 const terminalVelocity = 3;
 const drag = 0.1;
@@ -108,12 +108,12 @@ if (exploreBtn) {
 
 // Confetti burst function
 function triggerConfettiBurst() {
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 1; i++) {
         const c = new Confetti();
         c.y = window.innerHeight / 2;
         c.x = Math.random() * window.innerWidth;
         c.vy = (Math.random() - 0.5) * 6;
-        c.vx = (Math.random() - 0.5) * 6;
+        c.vx = (Math.random() - 0.5) * 4;
         confetti.push(c);
     }
 }
@@ -142,6 +142,20 @@ const wishMessages = [
 if (blowBtn && candle && wishMessage) {
     blowBtn.addEventListener('click', () => {
         if (!candleBlown) {
+            // Enhanced button animation
+            blowBtn.style.transform = 'scale(0.95)';
+            blowBtn.style.boxShadow = '0 4px 15px rgba(233, 30, 99, 0.6)';
+            
+            setTimeout(() => {
+                blowBtn.style.transform = 'scale(1.05)';
+                blowBtn.style.boxShadow = '0 15px 35px rgba(233, 30, 99, 0.7)';
+                
+                setTimeout(() => {
+                    blowBtn.style.transform = 'scale(1)';
+                    blowBtn.style.transition = 'all 0.3s ease';
+                }, 200);
+            }, 150);
+            
             // Blow out animation
             candle.classList.add('blown');
             if (smoke) {
@@ -156,15 +170,7 @@ if (blowBtn && candle && wishMessage) {
                 
                 // Create and show the wish message with modern styling
                 wishMessage.textContent = randomMessage;
-                wishMessage.style.animation = 'none';
-                wishMessage.style.opacity = '0';
-                wishMessage.style.transform = 'scale(0.8) translateY(20px)';
-                
-                setTimeout(() => {
-                    wishMessage.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                    wishMessage.style.opacity = '1';
-                    wishMessage.style.transform = 'scale(1) translateY(0)';
-                }, 10);
+                wishMessage.classList.add('show');
                 
                 // Trigger confetti burst
                 triggerConfettiBurst();
@@ -172,7 +178,8 @@ if (blowBtn && candle && wishMessage) {
                 candleBlown = true;
                 blowBtn.textContent = 'Make Another Wish! 🎂';
                 
-                // Change button style
+                // Change button style with smooth transition
+                blowBtn.style.transition = 'all 0.5s ease';
                 blowBtn.style.background = 'linear-gradient(45deg, #6bcf7f, #4ecdc4)';
                 
                 setTimeout(() => {
@@ -184,11 +191,11 @@ if (blowBtn && candle && wishMessage) {
             candle.classList.remove('blown');
             if (flame) flame.style.display = 'block';
             if (smoke) smoke.style.display = 'block';
+            wishMessage.classList.remove('show');
+            wishMessage.textContent = '';
             
             // Fade out current message
-            wishMessage.style.transition = 'all 0.6s ease';
-            wishMessage.style.opacity = '0';
-            wishMessage.style.transform = 'scale(0.8) translateY(-20px)';
+            wishMessage.classList.remove('show');
             
             setTimeout(() => {
                 wishMessage.textContent = '';
@@ -236,26 +243,10 @@ document.querySelectorAll('.memory-card').forEach(card => {
         setTimeout(() => {
             card.style.transform = '';
         }, 200);
-        triggerConfettiBurst();
     });
 });
 
-// Add sparkle effect on page load
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        triggerConfettiBurst();
-    }, 1000);
-});
-
-// Keyboard shortcuts for fun
-document.addEventListener('keydown', (e) => {
-    // Only trigger on spacebar, not on other keys or when typing
-    const activeElement = document.activeElement;
-    if (e.key === ' ' && activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        triggerConfettiBurst();
-    }
-});
+// Removed automatic confetti on page load and keyboard shortcuts to minimize celebrations
 
 // Reason Reveal Button Functionality
 const reasonBtn = document.getElementById('reason-btn');
@@ -277,11 +268,6 @@ if (reasonBtn && reasonCards.length > 0) {
             reasonBtn.textContent = '✨ Hide Reasons ✨';
             reasonBtn.style.background = 'linear-gradient(45deg, #6bcf7f, #4ecdc4)';
             revealed = true;
-            
-            // Trigger confetti after all cards are revealed
-            setTimeout(() => {
-                triggerConfettiBurst();
-            }, reasonCards.length * 150);
         } else {
             // Hide all cards
             reasonCards.forEach((card, index) => {
@@ -322,7 +308,6 @@ timelineItems.forEach(item => {
         setTimeout(() => {
             item.style.transform = '';
         }, 300);
-        triggerConfettiBurst();
     });
 });
 
@@ -333,6 +318,89 @@ reasonCards.forEach(card => {
         setTimeout(() => {
             card.style.transform = '';
         }, 200);
+    });
+});
+
+// Music Control
+document.addEventListener('DOMContentLoaded', () => {
+    const musicBtn = document.getElementById('music-btn');
+    const backgroundMusic = document.getElementById('background-music');
+    let isMusicPlaying = false;
+    
+    if (!musicBtn || !backgroundMusic) return;
+    
+    // Initialize icon state
+    const musicIcon = musicBtn.querySelector('.music-icon');
+    if (!musicIcon) return;
+    
+    // Set initial muted state
+    musicBtn.classList.add('muted');
+    
+    // Try to play music on first user interaction (required by browsers)
+    const playMusicOnInteraction = (e) => {
+        // Don't trigger if clicking the music button itself
+        if (e.target === musicBtn || musicBtn.contains(e.target)) {
+            return;
+        }
+        
+        if (!isMusicPlaying && backgroundMusic.paused) {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.remove('muted');
+                musicIcon.textContent = '🎵';
+            }).catch(err => {
+                console.log('Music autoplay prevented:', err);
+            });
+        }
+    };
+    
+    // Play music on first user interaction (excluding music button)
+    document.addEventListener('click', playMusicOnInteraction, { once: true });
+    document.addEventListener('touchstart', playMusicOnInteraction, { once: true });
+    
+    // Music button click handler
+    musicBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (isMusicPlaying && !backgroundMusic.paused) {
+            // Pause music
+            backgroundMusic.pause();
+            isMusicPlaying = false;
+            musicBtn.classList.add('muted');
+            musicIcon.textContent = '🔇';
+        } else {
+            // Play music
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.remove('muted');
+                musicIcon.textContent = '🎵';
+            }).catch(err => {
+                console.log('Error playing music:', err);
+                musicBtn.classList.add('muted');
+                musicIcon.textContent = '🔇';
+            });
+        }
+    });
+    
+    // Handle audio errors
+    backgroundMusic.addEventListener('error', () => {
+        musicBtn.classList.add('muted');
+        musicIcon.textContent = '🔇';
+    });
+    
+    // Update state when audio ends or is paused externally
+    backgroundMusic.addEventListener('pause', () => {
+        if (backgroundMusic.paused) {
+            isMusicPlaying = false;
+            musicBtn.classList.add('muted');
+            musicIcon.textContent = '🔇';
+        }
+    });
+    
+    backgroundMusic.addEventListener('play', () => {
+        isMusicPlaying = true;
+        musicBtn.classList.remove('muted');
+        musicIcon.textContent = '🎵';
     });
 });
 
@@ -414,4 +482,5 @@ function loadGallery() {
         galleryContainer.appendChild(galleryItem);
     });
 }
+
 
